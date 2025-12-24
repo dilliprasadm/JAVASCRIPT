@@ -1,3 +1,5 @@
+// ********** EXECUTION CONTEXT & HOISTING IN JAVASCRIPT **********
+
 // var x = 10;
 // function test() {
 //   console.log("test", x);
@@ -138,3 +140,5 @@ area2();
 // 0
 // C:\Users\dilli\Dilli Desktop\Practice\JavaScript\execution-context\execution-context.js:120
 // area2();TypeError: area2 is not a function
+
+
