@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form</title>
+  </head>
+  <body>
+    <form>
+      <input type="text" name="username" placeholder="name" />
+      <input type="email" name="email" placeholder="email" />
+      <input type="number" name="phone" placeholder="phone" />
+      <input type="password" name="password" placeholder="password" />
+      <textarea type="text" name="message" placeholder="message"></textarea>
+      <input type="file" name="resume" placeholder="upload resume" />
+      <button type="submit">Submit</button>
+    </form>
+
+    <script>
+      const form = document.querySelector("form");
+      form.addEventListener("submit", (event) => {
+        event.preventDefault(); // prevent the default form submission behavior
+        const formData = new FormData(form); // create a FormData object from the form
+        console.log(formData); // it has properties and methods to work with form data like get, getAll(), entries(), forEach, append(), delete(), has(), keys(), values() etc.
+        console.log(formData.get("username")); // get value of the "username" field
+        console.log(formData.get("email"));
+        console.log(formData.getAll("phone")); // get all values for the "phone" field
+
+        const data = Object.fromEntries(formData.entries()); // convert FormData to a plain object
+        console.log("Form Data Submitted:", data); // log the form data to the console
+
+        // const data = {};
+        // formData.forEach((value, key) => { // iterate over each key-value pair in the FormData
+        //   data[key] = value; // populate the data object with form values
+        // });
+        // console.log("Form Data Submitted:", data); // log the form data to the console
+      });
+
+      
+    </script>
+  </body>
+</html>

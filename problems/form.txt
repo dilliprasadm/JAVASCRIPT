@@ -1,0 +1,11 @@
+Comparison Table:
+Feature	forEach	JSON.stringify	structuredClone
+Nested Objects	✗ Shallow	✓ Deep	✓ Deep
+Nested Arrays	✗ Shallow	✓ Deep	✓ Deep
+Dates	-	✗ String	✓ Date
+Maps/Sets	-	✗ Lost	✓ Preserved
+Functions	-	✗ Lost	✗ Error
+Undefined	-	✗ Lost	✓ Preserved
+BigInt	-	✗ Error	✓ Preserved
+Browser Support	All	All	Modern (90%+)
+Use structuredClone() when possible — it's more robust and handles edge cases better!
