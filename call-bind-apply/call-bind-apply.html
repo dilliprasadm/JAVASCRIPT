@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Call, Bind, Apply</title>
+    <script src="index.js" defer></script>
+</head>
+<body>
+    <h1>Call, Bind, Apply in JavaScript</h1>
+
+    <h3>Call</h3>
+    <p>It executed Immediately</p>
+    <p>argumant passing (this, arg1, arg2, ...)</p>
+    <p>It is best for when you know exactly how many arguments you have and want to run the code now.</p>
+
+    <h3>Apply</h3>
+    <p>It executed Immediately</p>
+    <p>argumant passing (this, [arg1, arg2, ...])</p>
+    <p>It is best for when your data is already in an array or you have variable number of arguments.</p>
+
+    <h3>Bind</h3>
+    <p>It executed Later (delayed)</p>
+    <p>It returns a new funciton with 'this' permanently fixed.</p>
+    <p>we are setting this for future use</p>
+    <p>This is best for event handlers, setTimeout callbacks, or currying (prefilling arguments for later).</p>
+    <p>argumant passing (this, arg1, arg2, ...)</p>
+
+    <script>
+        var salary = 50000;
+        let month = "December";
+
+        const employee = {
+            name : "Dilli",
+            getSalary : function(yearlyBonus, tax){
+                console.log("salary:", salary) // 50000 from global scope, that is scope chain
+                console.log("name:", name) // empty because no variable in this scope, and global name is empty
+                console.log("this.salary:", this.salary) // this refers to employee object, salary is not there in employee object, and it is taken using call object
+                console.log("this.name:", this.name)
+                console.log("month:", month)
+                console.log("this.month:", this.month)
+                return this.salary + yearlyBonus - tax;
+            }
+        }
+
+        const employee2 = {
+            salary : 70000,
+        }
+
+        const employee3 = {
+            name: "reddy",
+            month: "February"
+        }
+
+        const employee4 = {
+            salary: 90000,
+            name: "Dilli Prasad",
+            month: "March"
+        }
+
+        let a = employee.getSalary.call({name: "Prasad", salary:60000}, 200000, 20000);
+        console.log("Call a", a) // 60000 + 200000 - 20000 = 240000
+        let b = employee.getSalary.call(employee2, 1500000, 30000);
+        console.log("Call b", b) // 70000 + 1500000 - 30000 = 1540000 
+        let c = employee.getSalary.call(employee3, {salary: 100000}, 300000, 50000);
+        console.log("Call c", c) // NaN because salary is not present in employee3
+        let d = employee.getSalary.call(employee4, 300000, 50000);
+        console.log("Call d", d) // 90000 + 300000 - 50000 = 340000
+
+
+        let e = employee.getSalary.apply({name: "Prasad", salary:60000, month: "January"}, [200000, 20000]);
+        console.log("Apply e", e); // 60000 + 200000 - 20000 = 240000
+        let f = employee.getSalary.apply(employee2, [1500000, 30000]);
+        console.log("Apply f", f); // 70000 + 1500000 - 30000 = 1540000
+        let g = employee.getSalary.apply(employee3, [{salary: 100000}, 300000, 50000]);
+        console.log("Apply g", g); // NaN because salary is not present in employee
+        let h = employee.getSalary.apply(employee4, [300000, 50000]);
+        console.log("Apply h", h); // 90000 + 300000 - 50000 = 340000
+
+        console.log("Bind")
+        let bindFunc = employee.getSalary.bind({name: "Prasad", salary:60000}, 200000, 20000);
+        let i = bindFunc(); // this.month is not binded, so it is undefined
+        console.log("Bind i:", i); // 60000 + 200000 - 20000 = 240000
+        let bindFunc2 = employee.getSalary.bind(employee2, 1500000, 30000);
+        let j = bindFunc2();
+        console.log("Bind j:", j); // 70000 + 1500000 - 30000 = 1540000
+        let bindFunc3 = employee.getSalary.bind(employee3, {salary: 100000}, 300000, 50000);
+        let k = bindFunc3();
+        console.log("Bind k:", k); // NaN because salary is not present in employee3
+        let bindFunc4 = employee.getSalary.bind(employee4, 300000, 50000);
+        let l = bindFunc4();
+        console.log("Bind l:", l); // 90000 + 300000 - 50000 = 340000
+    </script>
+
+    
+</body>
+</html>

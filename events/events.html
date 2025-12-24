@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Events</title>
+  </head>
+  <body>
+    <h1 onclick="(()=>console.log('This is h1 element'))()">
+      Events in Javascript
+    </h1>
+    <a href="https://www.freecodecamp.org/news/javascript-in-the-browser-dom-and-events/#heading-matches-closest-and-contains">ref link</a>
+
+    <div onclick="()=>console.log('This is container')" id="container">
+      <h2 onclick="console.log('This is h2')">This is container</h2>
+      <p id="paragraph">This is a paragraph</p>
+    </div>
+
+    <div
+      id="grandparent"
+      style="display: flex; flex-direction: column; gap: 10px"
+    >
+      grandparent
+      <div id="parent" style="display: flex; flex-direction: column; gap: 10px">
+        parent
+        <div
+          id="child0"
+          style="display: flex; flex-direction: column; gap: 10px"
+        >
+          child0
+        </div>
+        <div id="child">child</div>
+      </div>
+    </div>
+
+
+    <div>
+      <ul id="itemsList">
+        <li>Item 1</li>
+        <li><span>Item 2 (nested)</span></li>
+        <li class="special">Item 3</li>
+        <li>Item 4</li>
+        <li>Item 5</li>
+        <li>Item 6</li>
+        <li>Item 7</li>
+        <li>Item 8</li>
+      </ul>
+      <button id="addButton">Add New Item</button>
+    </div>
+
+    <script>
+      let para = document.getElementById("paragraph");
+      para.addEventListener("click", function () {
+        console.log("Paragraph clicked");
+      });
+
+      // Event Bubbling and Capturing
+      let grandparent = document.getElementById("grandparent");
+      let parent = document.getElementById("parent");
+      let child = document.getElementById("child");
+      let child0 = document.getElementById("child0");
+
+      // Bubbling Phase (default)
+      // grandparent.addEventListener("click", () => {
+      //   console.log("Grandparent clicked - Bubbling")}, { once: true }
+      // );
+      // parent.addEventListener("click", () => {
+      //   console.log("Parent clicked - Bubbling");
+      // });
+      // child.addEventListener("click", () => {
+      //   console.log("Child clicked - Bubbling");
+      // });
+      // child0.addEventListener("click", () => {
+      //   console.log("Child0 clicked - Bubbling");
+      // });
+
+      // Capturing Phase
+      grandparent.addEventListener("click", () => {
+          console.log("Grandparent clicked - Capturing");
+        },
+        true
+      );
+      parent.addEventListener("click", () => {
+          console.log("Parent clicked - Capturing");
+        },
+        true
+      );
+      child.addEventListener("click", () => {
+          console.log("Child clicked - Capturing");
+        },
+        true
+      );
+      child0.addEventListener("click", () => {
+          console.log("Child0 clicked - Capturing");
+        },
+        true
+      );
+    </script>
+    <script>
+      // Event Delegation
+      const itemsList = document.getElementById("itemsList");
+      const addButton = document.getElementById("addButton");
+
+      itemsList.addEventListener("click", function(event){
+        const clickedItem = event.target.closest("li");
+
+        if(clickedItem && itemsList.contains(clickedItem)){
+          console.log("You Clicked:", clickedItem.textContent.trim());
+        };
+
+        if(clickedItem.classList.contains("special")){
+          alert("This is a special item");
+        }
+
+        if(clickedItem.classList.contains("special")){
+          alert("This is a special item");
+        }
+      })
+
+      addButton.addEventListener("click", ()=>{
+        const addItem = document.createElement("li");
+        addItem.textContent = `Item ${itemsList.children.length + 1}`;
+        itemsList.appendChild(addItem);
+      })
+
+      // event.target - the actual DOM element that was clicked first
+      // event.currentTarget - the element the listener is attached to(ul in this case).
+      // element.closest('selector') - travels up the DOM tree from the element clicked (event.target) until it finds the ancestor that matches the selector (li), if none is found it returns null. 
+
+    </script>
+
+    <script src="./events.js"></script>
+  </body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>this in Javascript</title>
+  </head>
+  <p>
+    <h1><strong style="color: green">this</strong> in Javscript</h1>
+    <p>In Javascript <strong>this</strong> keyowrd is a dynamic reference to an object.</p>
+    <h3>1. The Four Primary Rules of Binding</h3>
+    <p><b>New Binding:</b> When a function is called with the new keyword (as a constructor), this refers to the newly created object.</p>
+    <a href="/call-bind-apply/call-bind-apply.html"><b>Explicit Binding:</b> Using .call(), .apply(), or .bind() allows you to manually set this to a specific object.</a>
+    <p><b>Implicit Binding:</b> When a function is called as a method of an object (e.g., obj.method()), this refers to the object immediately before the dot.</p>
+    <p><b>Default Binding:</b> If none of the above apply, this defaults to the global object (window in browsers).</p>
+    <p><b>Strict Mode:</b> In 'use strict', default binding is undefined instead of the global object</p><br />
+
+    <h3>2. Specialized Behaviors</h3>
+    <p>Arrow Functions: These do not have their own this. They lexically inherit it from the surrounding scope where they were defined. They are ideal for callbacks because they preserve the context of the parent function.</p>
+    <p>Event Handlers: In a regular function used as a listener, this refers to the DOM element that received the event. If an arrow function is used, this will instead point to the global object (or outer scope).</p>
+    <p>Classes: Inside a class constructor or instance method, this refers to the specific instance of that class.</p>
+    <p>Getters/Setters: this points to the object the property is being accessed from, even if the property was defined on a different object in the prototype chain.</p>
+    <br />
+    <h3>3. Common Pitfalls </h3>
+    <p>Lost Context: Passing a method as a callback (e.g., setTimeout(obj.method, 100)) often causes this to "lose" its object and revert to default binding. Use .bind(obj) or an arrow function to fix this.</p> 
+    <p>Arrow Functions as Methods: Defining an object method with an arrow function usually results in this pointing to the window, making it unable to access other object properties.</p>
+    <br />
+
+      <p>
+        Context 	        this Reference
+        Global Scope	    window (browser) or global (Node.js)
+        Object Method	    The object "owning" the method
+        Constructor (new)	The new instance being created
+        Event Listener	  The element that triggered the event
+        Arrow Function	  The this of the enclosing (outer) scope
+        Strict Mode (Alone)	undefined
+      </p>
+    <br />
+
+    <h5>
+      this represents different objects based on location it is used, like
+      globally, inside a function, outside a function, inside a object or method
+    </h5>
+    <h5>this can be used as a global object</h5>
+    <h5>this can be used inside a normal function</h5>
+    <h5>this can be used inside a event handler</h5>
+    <!-- how this behave inside a event handler -->
+    <button type="button" onclick="alert(this.tagName)">
+      this inside a event click to get a tag name
+    </button>
+    <!-- this inside a event handler give the element on which event is applied -->
+    <!-- The below will give complete button element -->
+    <button type="button" id="arrow">Arrow Function this</button>
+    <button type="button" id="button">Javascript event</button>
+    <button type="button" onclick="console.log(this)">
+      this inside a event
+    </button>
+    <button
+      type="button"
+      onclick="this.style.backgroundColor = 'red'"
+      id="button"
+    >
+      click to turn red
+    </button>
+    <h5>this can be used inside a object/ method</h5>
+    <h5>this can be used inside a strict mode</h5>
+
+    <script>
+      // when we use this in global, it will represent global object.(window)
+      console.log(this);
+      // Ex:
+      var a = 100;
+      // now this represent global object, this a is stored as property in window/global object, so we can access it by using the below ways
+      console.log(this.a); // 100
+      console.log(window.a); // 100
+      console.log(a); // 100
+
+      // When we use this inside a normal function, it represents global object.i.e, window
+      function sum() {
+        console.log(this); // window object
+        console.log(this.a); // 100 as inside function this represent global object
+        console.log(window.a); // 100
+      }
+
+      sum(); // function as stored as function in global/window object.
+
+      // in Javascript arrow functions doesn't have their own this binding. Instead, they inherit from their parent scope or global scope.
+      // this from the surrounding lexical scope where the function was defined.
+      // In a browser: window.
+      // In a Node.js module: module.exports.
+      const arrow = () => {
+        console.log("Arrow Function", this); // print window
+      };
+
+      // this inside a event handler
+      const element = (document.getElementById("button").onclick = function () {
+        console.log("Event using normal function:", this);
+        this.style.backgroundColor = "blue";
+      });
+
+      document.getElementById("arrow").onclick = () => {
+        console.log("Event using Arrow Function:", this); // window
+      };
+
+      // this inside a object or method
+      const obj = {
+        name: "Dilli",
+
+        // method
+        getName: function getName() {
+          console.log("This inside a object/method", this.name); // this represent obj{}, as it used inside a object
+        },
+        fullname: this.name,
+        age: 25,
+        getAge() {
+          console.log(this.age);
+        },
+      };
+
+      // In fullname: this.name (Property Assignment):
+      // Crucial: Object literals do not create a new scope for this. During the initialization of the object, this still refers to the surrounding scope (typically the window object in browsers).
+      // Since window.name is likely an empty string or undefined, obj.fullname becomes undefined or "", not "Dilli".
+
+      console.log("obj.fullname:", obj.fullname); // undefined
+      console.log("obj.age:", obj.age); // 25
+      // When you call obj.getName() or obj.getAge(), this refers to the object before the dot (obj).
+      // This is why this.name correctly logs "Dilli" and this.age logs 25
+      console.log("obj.getName():", obj.getName()); // Dilli
+      console.log("obj.getAge():", obj.getAge()); // 25
+
+      // console.log(obj.getName()) and obj.getAge():
+      // These methods do not have a return statement. In JavaScript, a function that doesn't explicitly return a value will return undefined by default.
+      // The console will log the text inside the function first, followed by undefined as the result of the console.log() call itself.
+
+      // Context	this refers to...	Result in your code
+      // Method (getName)	The object calling it (obj)	"Dilli"
+      // Property (fullname)	The outer scope (window)	undefined
+      // Arrow Function	Lexical parent scope	Inherited (usually window)
+    </script>
+    <script>
+      x = 10;
+      console.log(x); //10
+      // this inside a strict mode
+      function strictFunc() {
+        "use strict";
+        console.log(this); // undefined // if not in strict mode it will be window
+      }
+      strictFunc();
+    </script>
+
+    <script>
+      // Now entire script is in strict mode
+      "use strict";
+      // ab = 10; // Error: In strict mode, assigning a value to an undeclared variable will throw a ReferenceError.
+      console.log(this); // window
+
+      function strictFunc() {
+        console.log("this inside strict function:", this); // undefined
+        console.log(this.ab); // TypeError: Cannot read properties of undefined (reading 'ab')
+      }
+      // strictFunc(); // uncommenting this line will throw error
+    </script>
+  </body>
+</html>
