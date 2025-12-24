@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BOM (Browser Object Model)</title>
+  </head>
+  <body id="app">
+    <h1 id="title">BOM (Browser Object Model)</h1>
+    <p class="description">
+      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Assumenda non
+      animi quis quae beatae harum ea obcaecati commodi incidunt explicabo!
+    </p>
+    <card class="box" style="font-size: large;"> This is card </card>
+    <form>
+      <input type="text" name="email" />
+    </form>
+    <span>Hey I am span</span>
+    <div>
+      <ul>
+        <li>List 1</li>
+        <li>List 2</li>
+        <li>List 3</li>
+        <li>List 4</li>
+      </ul>
+    </div>
+
+    <div id="container">
+      <p id="message" class="para">Hello, World!</p>
+      <button id="changeText">Change Text</button>
+    </div>
+
+    <!-- In HTML5 it is possible to define custom attributes, to prevent conflicts we need to use prefix as "data-". -->
+    <div id="element1" data-category="music" data-course="walking" class="sample"> This element has custom attributes</div>
+    <!-- To access custom attributes we need use dataset console.log(element1.dataset)-->
+
+
+    <script>
+      let check = document.getElementById("message");
+      let container = document.getElementsByTagName("div")[0];
+      let container2 = document.querySelector("#container");
+      
+      // Contains method to check if an element is contained within another element.
+      console.log("Contians:", document.contains(check));
+      console.log("Contians:", container.contains(check)); // it will check the first div, so result will be false, so use perfect selector to get the exact element.
+      console.log("Contians:", container2.contains(check));
+      // Closest method available only on element, not ina document or window.
+      // It returns the closest ancestor that matches the CSS selector.
+      console.log("Closest:", check.closest("#message"));
+      // Matches method to check if element contains CSS selector.
+      console.log("Matches:", check.matches(".para"));
+      // div → tag selector
+      // .box → class selector
+      // #title → ID selector
+      // [data-user-id] → attribute selector
+
+      // we select the paragraph element by its ID
+      let messageElement = document.getElementById("message");
+      // To see properties, methods of the element we can use console.dir().
+      console.dir(messageElement);
+
+      // let's add event listener to button element using ID
+      document
+        .getElementById("changeText")
+        .addEventListener("click", function () {
+          // this  will change the text content of the paragraph element
+          messageElement.textContent = "Text Changed!";
+        });
+
+      // Manupulating Element Content and Visiblity
+      //innerHTML
+      let first = document.getElementsByTagName("span")[0];
+      console.log("InnerHTML:", first.innerHTML); // it will give only content inside the element as string.
+      //outerHTML
+      console.log("outerHTML:", first.outerHTML); // along with content it will give the element itself as string.
+      let second = (first.outerHTML =
+        "<span><p> Hey I am changed now </p></span>"); // it will replace the span element with div element.
+      console.log("After outerHTML content changed:", second);
+      // textContent
+      console.log("textContent:", second.textContent); // it will give only text content inside the element without any HTML tags.
+      // output: "Hey I am changed now"
+      // innerText
+      // The innerText property returns only the visible text content of an element, excluding any text within <script> and <style> elements
+      // It takes into account CSS styling, such as display: none, visibility: hidden, and so on and returns only the text that is rendered on the screen.
+      // style property
+      // This property provides access to an object for manipulating an element's inline styles (for example, element.style.color = "red").
+      // hidden property
+      // The hidden provides a simple and convenient way to control the visibility of elements in the DOM without directly manipulating their style properties.
+
+      document.getElementById("title").style.color = "blue"; // it will change the title color to blue.
+      document.getElementsByTagName("span")[0].hidden = true; // it will hide the span element.
+
+      // Modifying Element Attributes
+      // getAttribute() - retrieves the value of a specified attribute from an element.
+      // setAttribute() - sets or updates the value of specified attribute.
+      // removeAttribute() - removes a specified attribute from an specified element.
+      // hasAttribute() - checks whether an element has a specific attribute, return true or false.
+      // attributes - will get all the attributes of an element
+      console.log("Checks if element has attribute:", document.querySelector(".box").hasAttribute("style"));
+      console.log("Get the value of the attribute of element:", document.querySelector(".box").getAttribute("style"));
+      console.log("set/update a attribute for an element:", document.querySelector(".box").setAttribute("style", "display: inline")); 
+      // array.push(1) returns new length, map.set(k, v) returns map, el.setAttribute returns nothing, but it is success.
+      // | Method               | Return value |
+      // | -------------------- | ------------ |
+      // | `setAttribute()`     | `undefined`  |
+      // | `removeAttribute()`  | `undefined`  |
+      // | `append()`           | `undefined`  |
+      // | `addEventListener()` | `undefined`  |
+      // | `classList.add()`    | `undefined`  |
+      // They change state, not return state.
+      console.log(".attributes will show all the attributes of an element:", document.querySelector(".box").attributes);
+      console.log("remove a attribute from an element:", document.querySelector(".box").removeAttribute("style"));
+
+      // custom attributes access
+        let accessCustomAtt = document.querySelector(".sample")
+        console.log("CustomAttribute Access:", accessCustomAtt?.dataset);
+        console.log("CustomAttribute Access:", accessCustomAtt?.dataset.category);
+        console.log("CustomAttribute Access:", accessCustomAtt?.dataset.course);
+
+        // HTML Insertion Methods
+        let a = document.getElementsByTagName('div')[0];
+        a.innerHTML = '<h1>Hello World!</h1>';
+        console.log("HTML Insertion using innerHTML:", a.innerHTML);
+        a.innerHTML = a.innerHTML + '<h1>Hello Second</h1>';
+        console.log(a.cloneNode(true));
+        console.log("HTML Insertion using innerHTML after update:", a.innerHTML);
+
+      
+    </script>
+
+    <script src="bom-dom.js"></script>
+  </body>
+</html>
