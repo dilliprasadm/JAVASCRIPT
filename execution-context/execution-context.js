@@ -142,3 +142,61 @@ area2();
 // area2();TypeError: area2 is not a function
 
 
+// Why does a Function Expression assigned to a 'var' result in a TypeError if called before its definition, while a Function Declaration does not?
+// Function Expression assigned to var (TypeError before definition):
+sayHello();  // ❌ TypeError: sayHello is not a function
+
+var sayHello = function() {
+  console.log("Hello!");
+};
+
+sayHello();  // ✅ Prints "Hello!" (if called after)
+// Function Expression (var sayHello = function() {...}):
+// During creation phase:
+// Only var sayHello is hoisted, initialized to undefined.
+// The assignment sayHello = function() {...} happens in execution phase (line by line).
+// First sayHello() call reads undefined() → TypeError.
+// Function Expression (only var hoisted):
+// Engine sees this during creation phase:
+// var sayHello;  // undefined
+// sayHello();    // TypeError: undefined is not a function
+
+// // Execution phase:
+// sayHello = function() { console.log("Hello!"); }
+
+
+// Key takeaway
+// Declarations: Hoisted + initialized = callable anywhere in scope.
+// Expressions: Only variable declaration hoisted = undefined until assignment executes.
+
+
+// Which component of the Execution Context is responsible for tracking 'Outer Environment' references for the Scope Chain?
+// The Lexical Environment
+// The Lexical Environment consists of an Environment Record and a reference to the outer Lexical Environment, which forms the scope chain.
+
+// How it works
+// Each Execution Context contains a LexicalEnvironment component, which has two key parts:
+// LexicalEnvironment = {
+//   EnvironmentRecord: { /* local variables, functions */ },
+//   outer: <reference to outer LexicalEnvironment>
+// }
+
+// . EnvironmentRecord: Stores local bindings (variables, functions, parameters).
+// . outer: Points to the parent LexicalEnvironment (enclosing scope).
+
+// Scope Chain formation
+// When resolving a variable reference, the engine follows this chain:
+// Current LexicalEnvironment.outer → Parent.outer → ... → Global → null
+// Example from earlier code:
+// inner's LexicalEnvironment.outer → outer's LexicalEnvironment → Global
+
+// This chain enables inner() to access a and b from outer().
+// Execution Context structure
+
+// ExecutionContext = {
+//   LexicalEnvironment: { EnvironmentRecord, outer: <parent ref> },
+//   VariableEnvironment: { /* similar structure for var/let/const */ },
+//   ThisBinding: <this value>
+// }
+
+// The LexicalEnvironment.outer reference is what creates the lexical scope chain during the creation phase.
