@@ -34,3 +34,6 @@ for (var k = 0; k <= 3; k++) {
     setTimeout(() => console.log(k), 1000);
   })(k);
 } // output: 0 1 2 3
+
+console.log("2" > "10");
+console.log("2" > 10);
