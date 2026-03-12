@@ -5,11 +5,12 @@
   </head>
   <body>
     <script>
-      // var a = [10, 11, 12, 13, 14];
-      // function testing(b, ...a){
-      //     console.log(a);
-      // }
-      // testing(8,9,10,11,12); // output: [10,11,12]
+      var a = [10, 11, 12, 13, 14];
+      function testing(b, ...a){
+          console.log(a);
+      }
+      testing(8,9,10,11,12); // output: [9, 10,11,12]
+      testing(9, a)
 
       // what is the output of the above code?
 
