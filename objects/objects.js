@@ -14,7 +14,7 @@ const obj3 = { name: "Prasad" };
 obj1[obj2] = { name: "Reddy" };
 
 console.log(obj1[obj2]); // output? name: "Reddy"
-console.log(obj1); // output? // output
+console.log(obj1); // output? // [object Object] : { name: "Reddy" }
 // when use object as Key, it converts to string "[object Object]", so output is { "[object Object]" :
 
 
@@ -31,6 +31,8 @@ console.log(shallowCopy); // { a: 1, b: 2, c: 3 }
 console.log(shallowCopy === original); // false ✓ (different objects)
 
 // The Problem with Nested Objects (Shallow Copy Issue):
+// only top level properties got copied, neseted objects/arrays will point to same reference in both objects.
+// modifying nested values will effect original obj nested values too, bc both are points to same reference.
 const originall = { a: 1, b: { c: 2 } };
 const shallowCopyy = {};
 
@@ -82,7 +84,7 @@ function customDeepCopy(obj) {
 const deepCopyObj = customDeepCopy(original1);
 deepCopyObj.b.c = 999;
 console.log(original1.b.c); // 2 (original unchanged ✓)
-
+// NOTE: the customDeepcopy will not handle arrays, all arrays are converted to objects. check objects2 file for correct deep copying
 
 
 
