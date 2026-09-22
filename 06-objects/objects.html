@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Objects in JavaScript</title>
     <description>
+      // An object groups multiple values together.
       // destructuring
       // shorthand Property
       // shorthand Method
@@ -15,6 +16,25 @@
 
     <script>
       // objects
+
+      const product = {
+        name: "socks",  // left side part is called property. and right side part is called values.
+        price: 100
+        // left and right side part both combined called "Property-value pair".
+        // we seperate property and value with colon(:).
+        // we can have many property value pairs in an object, we seperate them with a comma(,).
+      };
+
+      console.log(product);
+      console.log(product.name); // accessing property -  with dot notation we can access propety value.
+      console.log(product.price);
+      console.log(product.quantity); // if we access a property that doesn't exist the value will be 'undefined'.
+
+      product.newProperty = true; // adding a new property and value.
+      console.log(product.newProperty);
+
+      product.name = "wooden socks" // modifying property
+      console.log(product.name);
 
       // If variable name and property name are equal, we actually have shortcut
       const object4 = {

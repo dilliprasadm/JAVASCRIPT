@@ -1,11 +1,56 @@
 // Objects
-// An object is a collection of key-value pairs.
+// An object is a collection of key-value pairs. || An object gropus mutliple values together.
 // Objects are not primitive data types, they are non-primitive data types.
 // Objects are stored by reference, not by value.
 // In JavaScipt, when use an object as a key in another object, it is converted to a string.
 // By default, the toString() method of an object returns "[object Object}".
 // Therefore, when we use different objects as keys, they all convert to the same string "[object Object]", leading to key collisions.
 // As a result, the last assignment to that key will overwrite any previous assignments.
+
+// const product = {
+//   name: "socks",  // left side part is called property. and right side part is called values.
+//   price: 100
+// left and right side part both combined called "Property-value pair".
+// we seperate property and value with colon(:).
+// we can have many property value pairs in an object, we seperate them with a comma(,).
+// };
+
+// why we use objects
+// Objects make our code more organised.
+// objects let us group multiple values together,
+// let us use multiple values together.
+//
+
+// dot or bracket notation which once we use?
+// use dot notationby default
+// for properties that don't work use bracket notation
+
+// inside an object, we can save any type of value.
+// objects themselves are also values. ex: below rating
+// a function is another type of value.
+// function inside object called "Method".
+
+const product2 = {
+  name: "shirt",
+  ["delivery-time"]: "1 day", // if we only have string brackets are optional.
+  rating: {
+    stars: 4.5,
+    count: 90, // object inside an object called nested object.
+  },
+  fun: function function1() {
+    console.log("function inside object");
+  },
+};
+
+console.log(product2.rating.count);
+product2.fun();
+
+console.log(typeof console); // console is an object and log inside is a function that is saved inside the console object.
+console.log(typeof console.log);
+
+// another ex: is math.random
+// Math is also an object provided by javascript and random is a function saved inside the math object. so we call math.random a method as well.
+// There are more built-in objects provided by javascript. you can check the built-in-objects.html file.
 
 const obj1 = {};
 const obj2 = { name: "Dilli" };
@@ -16,8 +61,6 @@ obj1[obj2] = { name: "Reddy" };
 console.log(obj1[obj2]); // output? name: "Reddy"
 console.log(obj1); // output? // [object Object] : { name: "Reddy" }
 // when use object as Key, it converts to string "[object Object]", so output is { "[object Object]" :
-
-
 
 // Yes, you can use forEach to create a shallow copy, but not a deep copy (without additional logic).
 const original = { a: 1, b: 2, c: 3 };
@@ -44,10 +87,6 @@ shallowCopyy.b.c = 999;
 console.log(originall.b.c); // 999 (original changed! ✗)
 // In this case, modifying shallowCopy.b.c also affects original.b.c because both objects reference the same nested object.
 
-
-
-
-
 // Shallow Copy using spread operator or Object.assign():
 const originalObj = { a: 1, b: { c: 2 } };
 const shallowCopyObj1 = { ...originalObj };
@@ -64,8 +103,6 @@ console.log(originalObj.b.c); // 777 (original changed! ✗)
 // - For deep copying, consider using structuredClone(), JSON methods, or libraries like Lodash.
 // -----------------------------------------------------------------------------------------------------------------------------
 
-
-
 // For deep copying, consider using structuredClone(), JSON methods, or libraries like Lodash.
 // For Deep Copy, You Need Recursion:
 // Summary: forEach alone creates only shallow copies. For deep copies, you need recursion or built-in methods like JSON.parse(JSON.stringify()) or structuredClone().
@@ -74,7 +111,8 @@ const original1 = { a: 1, b: { c: 2 } };
 function customDeepCopy(obj) {
   const copy = {};
   Object.keys(obj).forEach((key) => {
-    copy[key] = typeof obj[key] === "object" && obj[key] !== null
+    copy[key] =
+      typeof obj[key] === "object" && obj[key] !== null
         ? customDeepCopy(obj[key])
         : obj[key];
   });
@@ -85,9 +123,6 @@ const deepCopyObj = customDeepCopy(original1);
 deepCopyObj.b.c = 999;
 console.log(original1.b.c); // 2 (original unchanged ✓)
 // NOTE: the customDeepcopy will not handle arrays, all arrays are converted to objects. check objects2 file for correct deep copying
-
-
-
 
 // 1. JSON.parse(JSON.stringify())
 const original2 = {
@@ -121,12 +156,6 @@ const original3 = {
 const copy = JSON.parse(JSON.stringify(original3));
 console.log(copy.date); // "2025-12-21T..." (string, not Date)
 console.log(copy.func); // undefined (function lost)
-
-
-
-
-
-
 
 // 2. structuredClone() (Modern Alternative)
 const original4 = {
@@ -165,13 +194,9 @@ console.log(copy1.bigInt); // 123n ✓
 
 const original6 = {
   func: () => "hello", // ✗ Will throw error
-  circular: null,  // Circular reference
+  circular: null, // Circular reference
   symbol: Symbol("key"), // ✗ Will throw error
 };
-
-
-
-
 
 // structuredClone(original6); // Error: Function cannot be cloned
 // Use structuredClone() when possible — it's more robust and handles edge cases better!

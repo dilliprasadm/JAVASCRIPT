@@ -1,43 +1,168 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Built-in Objects</title>
-  <description>
-    // Built in objects are provided by language
-    // JSON
-    // Local Storage
-  </description>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Built-in Objects</title>
+    <description>
+      // objects = group related values together.
+      // Built in objects that are provided by language(JSON, Local Storage)
+      // null, auto-boxing
+      // Why object value store as referance
+      // Copy by reference
+      // shortcuts (destructuring, shorthand property, shorthand method)
+    </description>
+  </head>
+  <body>
+    <script>
+      console.log(console);
+      console.log(typeof console); // console is an object and log inside is a function that is saved inside the console object.
+      console.log(typeof console.log);
+      // There are many functions inside console object.
+      // Ex: debug, error, info, warn, table, time, etc.
 
-  // JSON - JavaScript Object Notation
-  // a syntax similar to javascript objects
-  // but has less features
-  // all properties and strings must use double quotes in JSON
-  // JSON does not support single quotes
-  // JSON does not support functions
-  // so basically JSON is similar to JS objects but with less features.
+      // another ex: is math.random
+      // Math is also an object provided by javascript and random is a function saved inside the math object. so we call math.random a method as well.
+      // There are more built-in objects provided by javascript.
+      // built-in objects (they are provided by language)
 
-  // why do we need to use JSON syntax instead of JavaScript object syntax
-  // javascript object only makes sense in javascript, on the other hand, JSON syntax can be understood by almost every promgramming language.
-  // so JSON syntax is more universal. for this reason we use json when we send data between two computers.
-  // we use JSON when we send data between computers, that might use different programming languages.
-  // we also use JSON when we store data.
+      // more built-in objects
+      // JSON and Localstorgae
 
-  // how to store data
-  // buily-in json object
+      // JSON - JavaScript Object Notation
+      // a syntax similar to javascript objects
+      // but has less features
+      // all properties and strings must use double quotes in JSON
+      // JSON does not support single quotes
+      // JSON does not support functions
+      // so basically JSON is similar to JS objects but with less features.
 
-  <script>
+      // why do we use JSON syntax instead of JavaScript object syntax?
+      // - javascript object only makes sense in javascript, on the other hand, JSON syntax can be understood by almost every promgramming language.
+      // - so JSON syntax is more universal. for this reason we use json when we send data between two computers.
+      // we use JSON
+      // - when we send data between computers, that might use different programming languages.
+      // - we also use JSON when we store data.
 
-    const product2 = {
-      name: "Fridge"
-    }
-    JSON.stringify(product2)
-  </script>
+      // how to store data
+      // built-in json object
 
+      console.log(JSON);
+      // methods isRawJson, rawJSON,
 
+      JSON.stringify(); // stringify is a method of the json object. it is a function that is saved inside json object.
+      // we can call this function using brackets and between the brackets we can give it a javascript object we want to convert likr product2.
 
-</body>
+      const product2 = {
+        name: "Fridge",
+      };
+      console.log(JSON.stringify(product2));
+      const jsonString = JSON.stringify(product2);
+      // one thing to note about strinify is that it actually results in string.
+      console.log(typeof JSON.stringify(product2)); // string
+
+      // to convert the other way from JSON  to Javascript object
+      // we use another method in built-in json object. that is json.parse()
+
+      console.log(JSON.parse(jsonString));
+
+      // LOCAL STORAGE (built-in object)
+      // varibales are temporary, if we refresh the page, all varibales are deleted and created again.
+      // local storage doesn't get deleted when we refresh the page.
+      // local storage only supports strings, so we need to convert objects or values using json methods.
+      console.log(localStorage);
+      console.log(typeof localStorage);
+
+      // set an item in local storage
+      localStorage.setItem("message", "hello");
+      // get an item from local storage
+      console.log(localStorage.getItem("message"));
+      // remove an item
+      console.log(localStorage.removeItem("message"));
+
+      console.log(localStorage.getItem("message")); // null
+
+      // other values also have properties and methods
+      // for ex:
+      //
+      console.log("hello".length);
+      console.log("hello".toUpperCase());
+      // simple values like strings also have properties and values.
+      // These are strings not objects. how can strings have properties and methods.
+      // That is javascript has a special feature called "Auto Boxing", Javascript automatically wraps this string in a special object first. and this object has the property adn methods.
+      // this is done automatically, we dont see the special object that wrapped arounf this stting. This feature is called "Auto boxing".
+      // Auto boxing works with other types of values like numbers and booleans.
+
+      (3.0).toString();
+      true.toString();
+
+      // auto boxing doesn't work with null and undefined, it will just give us an error.
+
+      // next chapter is objects are referances.
+
+      const object1 = {
+        message: "hello",
+      };
+      // When we create this object the actual value is created somewhere in the computers memory, and this variable object1 actually gets a referance that points to that location in the computers memory. this is like a shortcut on a computer.
+      // a shortcut points to where the actual file or folder is, so there is no way to actually see this reference, but just know that this is a reference.
+      // and the object is somewhere else in the computers memory.
+      // the reason it works this way is to make the language more efficient.
+
+      const object2 = object1; // this code doesn't make the copy of the object, it makes a copy of the reference  that points to the object.
+      // so this makes a language more efficient because if we had a really big object here its not good to copy the entire object over and over again.
+      // instead javascript just copies the reference which is much faster. This is called "copy by reference".
+
+      // lets see some intresting behaviours of referances.
+      object1.message = "Good job";
+      console.log(object1);
+      // we can able to change the message property even thouggh we create object with const, becasue this variable just contains a reference that points to the object.
+      // const prevents us from changing the reference in the variable, but it doesn't prevent us from reaching into the reference and changing the object that its pointing to.
+      // const object2 = object1;  we are not actually copying into this varibale. we're copying the reference so object two actually has the same reference as object one. they actually point to the same object in the computers memory.
+      console.log(object2);
+      // object2 the message property was also changed, even though we only changed object one.
+
+      // another interesting behaviour is we can't compare objects directly.
+      const object3 = {
+        message: "Good job",
+      };
+
+      console.log(object1 === object3); // false // this code compates references not values.
+      console.log(object1 === object2); // true. this code compares referenecs not values. this two has same references.
+
+      // shortcuts for objects
+      const object4 = {
+        message: "Good job",
+        price: 800,
+      };
+      // const message = object4.message;
+      // if variable name and property name are same, we have a shortcut
+      const { message } = object4;
+      console.log(message); // this is called "object destructuring".
+      const { message1, price } = object4;
+      console.log(message1, price); // undefined, 800 because name and property name are different.
+
+      // destructuring - easier way to take properties out of an object.
+
+      // shorthand property
+      const object5 = {
+        message: message, // variable message. here we are assigin a another variable as value.
+        method: function function1() {
+          console.log("method");
+        },
+      };
+      console.log(object5);
+      // for the above code we have shortcut if both if the property and variable name are the same we can actually just typt it out once.
+      const object6 = {
+        message, // this is same as message: message , this is called "shorthand property".
+        method() {
+          console.log("shorthand method")  // this is same as above  method: function function1() {
+        }
+      };
+      console.log(object6);
+
+      // shorthand method
+      object5.method();
+      object6.method();
+    </script>
+  </body>
 </html>
