@@ -15,7 +15,7 @@
     <form>
       <input type="text" name="email" />
     </form>
-    <span>Hey I am span</span>
+    <span><p>Hey I am span</p></span>
     <div>
       <ul>
         <li>List 1</li>
@@ -40,15 +40,15 @@
       let container = document.getElementsByTagName("div")[0];
       let container2 = document.querySelector("#container");
       
-      // Contains method to check if an element is contained within another element.
-      console.log("Contians:", document.contains(check));
-      console.log("Contians:", container.contains(check)); // it will check the first div, so result will be false, so use perfect selector to get the exact element.
-      console.log("Contians:", container2.contains(check));
-      // Closest method available only on element, not ina document or window.
+      // 'Contains' method to check if an element is contained within another element.
+      console.log("Contains:", document.contains(check)); // true
+      console.log("Contains:", container.contains(check)); // it will check the first div, so result will be false, so use perfect selector to get the exact element.
+      console.log("Contains:", container2.contains(check));
+      // 'Closest' method available only on element, not in a document or window.
       // It returns the closest ancestor that matches the CSS selector.
-      console.log("Closest:", check.closest("#message"));
-      // Matches method to check if element contains CSS selector.
-      console.log("Matches:", check.matches(".para"));
+      console.log("Closest:", check.closest("#message"));  // Closest: <p id=​"message" class=​"para">​Hello, World!​</p>​
+      // 'Matches' method to check if element contains CSS selector.
+      console.log("Matches:", check.matches(".para")); //true
       // div → tag selector
       // .box → class selector
       // #title → ID selector
@@ -57,7 +57,7 @@
       // we select the paragraph element by its ID
       let messageElement = document.getElementById("message");
       // To see properties, methods of the element we can use console.dir().
-      console.dir(messageElement);
+      console.dir(messageElement); //>p#message.para
 
       // let's add event listener to button element using ID
       document
@@ -70,15 +70,16 @@
       // Manupulating Element Content and Visiblity
       //innerHTML
       let first = document.getElementsByTagName("span")[0];
-      console.log("InnerHTML:", first.innerHTML); // it will give only content inside the element as string.
+      console.log("InnerHTML:", first.innerHTML); // it will give only content inside the element as string. Parses string as HTML. If you set innerHTML = "<b>Hi</b>", it renders as Hi.
       //outerHTML
       console.log("outerHTML:", first.outerHTML); // along with content it will give the element itself as string.
       let second = (first.outerHTML =
-        "<span><p> Hey I am changed now </p></span>"); // it will replace the span element with div element.
+        "<span> Hey I am changed now </span>"); // it will replace the span element with div element.
       console.log("After outerHTML content changed:", second);
       // textContent
-      console.log("textContent:", second.textContent); // it will give only text content inside the element without any HTML tags.
+      console.log("textContent:", first.textContent); // hey, I am span. it will give only text content inside the element without any HTML tags. Treats string as raw text. If you use textContent, it displays the literal string "<b>Hi</b>" on the page.
       // output: "Hey I am changed now"
+      // textContent retrieves all text, including content hidden by CSS (like display: none) or contained within <script> and <style> tags.
       // innerText
       // The innerText property returns only the visible text content of an element, excluding any text within <script> and <style> elements
       // It takes into account CSS styling, such as display: none, visibility: hidden, and so on and returns only the text that is rendered on the screen.
@@ -96,8 +97,8 @@
       // removeAttribute() - removes a specified attribute from an specified element.
       // hasAttribute() - checks whether an element has a specific attribute, return true or false.
       // attributes - will get all the attributes of an element
-      console.log("Checks if element has attribute:", document.querySelector(".box").hasAttribute("style"));
-      console.log("Get the value of the attribute of element:", document.querySelector(".box").getAttribute("style"));
+      console.log("Checks if element has attribute:", document.querySelector(".box").hasAttribute("style")); //true
+      console.log("Get the value of the attribute of element:", document.querySelector(".box").getAttribute("style")); // font-size: large;
       console.log("set/update a attribute for an element:", document.querySelector(".box").setAttribute("style", "display: inline")); 
       // array.push(1) returns new length, map.set(k, v) returns map, el.setAttribute returns nothing, but it is success.
       // | Method               | Return value |
@@ -124,8 +125,6 @@
         a.innerHTML = a.innerHTML + '<h1>Hello Second</h1>';
         console.log(a.cloneNode(true));
         console.log("HTML Insertion using innerHTML after update:", a.innerHTML);
-
-      
     </script>
 
     <script src="bom-dom.js"></script>

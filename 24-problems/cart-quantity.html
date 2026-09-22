@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+  <head>
+    <title>THis is HTML_CSS</title>
+    <style>
+      button {
+        color: white;
+        background-color: black;
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <button>Cart Quantity</button>
+    <button onclick="console.log(`Cart Quantity: ${cartQuantity} `)">
+      Show Quantity
+    </button>
+    <button
+      onclick="
+        // cartQuantity = cartQuantity + 1;
+        cartQuantity++;
+        console.log(`Cart Quantity: ${cartQuantity} `);
+      "
+    >
+      Add to Cart
+    </button>
+    <button
+      onclick="
+        cartQuantity = cartQuantity + 2;
+        console.log(`Cart Quantity: ${cartQuantity} `);
+      "
+    >
+      +2
+    </button>
+    <button
+    onclick="cartQuantity += 3;
+    console.log(`Cart Quantity: ${cartQuantity} `)">+3</button>
+    <button onclick="cartQuantity=0;
+    console.log(`cartQuantity: ${cartQuantity}`)">Reset Cart</button>
+
+    <p>This is a javascript cousre<button>Know more</button></p>
+
+    <script>
+      let cartQuantity = 0;
+    </script>
+  </body>
+</html>

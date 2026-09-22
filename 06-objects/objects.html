@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Objects in JavaScript</title>
+    <description>
+      // destructuring
+      // shorthand Property
+      // shorthand Method
+    </description>
+  </head>
+  <body>
+    <!-- <script src="objects.js"></script> -->
+
+    <script>
+      // objects
+
+      // If variable name and property name are equal, we actually have shortcut
+      const object4 = {
+        message: "good job",
+        price: 899,
+      };
+
+      // const message = object4.message;
+      // const price = object4.price; // this can be done like below.
+
+      const { message, price } = object4; // destructuring
+      console.log(message);
+      console.log(price);
+
+      const object5 = {
+        // message: message, // It takes whatever is inside message variable and substitute in this message variable
+        //  if property and variable name is same {message : message}, we have a shortcut for that, that is called shorthand property.
+        message, // shorthand property
+
+        // shorthand Method
+        // method:function function1() {
+        //   console.log('method');
+        // }
+        // we actually have shortcut to write that function`
+        method() {
+          // this is same as above method:function function1() {
+          console.log("shorthand method");
+        },
+      };
+
+      console.log(object5);
+      object5.method(); // to run the above function.
+    </script>
+  </body>
+</html>

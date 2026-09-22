@@ -52,7 +52,7 @@ promise
   });
 
 // Promise { <rejected> 'sunny' } error from .then sunny
-// here catch block is not exectued because in .then we are hadnling erro call back means it will call errorcallback so promise was resolved, so catch block was not executed.
+// here catch block is not exectued because in .then we are handling error call back means it will call errorcallback so promise was resolved, so catch block was not executed.
 // .then(success, error)
 //  Promise rejected
 //    ↓

@@ -35,5 +35,5 @@ for (var k = 0; k <= 3; k++) {
   })(k);
 } // output: 0 1 2 3
 
-console.log("2" > "10");
+console.log("2" > "10"); 
 console.log("2" > 10);

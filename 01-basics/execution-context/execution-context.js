@@ -120,7 +120,7 @@ var area2 = 0;
 
 area2();
 
-//Now if we call again the output will be:
+// Now if we call again the output will be:
 // area: [Function: area2]
 // function prints area2
 

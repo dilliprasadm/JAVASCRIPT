@@ -1,7 +1,7 @@
 //Reference: https://www.freecodecamp.org/news/javascript-in-the-browser-dom-and-events/#what-is-the-document-object-model-dom
 
 // console.log(window);
-// When we run node bom-dom.js we get error like window is not defined. because node js is not a browser, so window is not avialable node js.
+// When we run node bom-dom.js we get error like window is not defined. because node js is not a browser, so window is not avialable in node js.
 // BOM and DOM are browser specific objects, they are not available in node js environment.
 // We can use window, document, alert, location, DOM/BOM APIs in browser only.
 // Create a HTML file and include this file to run the above code successfully in browser.
@@ -115,7 +115,7 @@ newParagraph.textContent = "This is a new paragraph.";
 // Append the element to the document body and log the result
 // document.body is a common element to append to in the body of an HTML document
 console.log(document.body.append(newParagraph));
-//document.append(node1, node2);
+// document.append(node1, node2);
 // Can append multiple nodes
 // Can append strings
 // Newer API
@@ -168,10 +168,10 @@ let element = document.getElementsByClassName("box");
 console.log(element.remove);
 // Removes node from DOM.
 
-//replaceWith()
+// replaceWith()
 // console.log("div".replaceWith("header"));
 
-//classList
+// classList
 let el = document.querySelector("#title");
 console.log(
   el.classList.add("active"),
